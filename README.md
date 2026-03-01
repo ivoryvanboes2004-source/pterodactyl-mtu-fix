@@ -1,29 +1,48 @@
-# Pterodactyl MTU Fix (GRE Tunnel)
+# Pterodactyl / VPS MTU Fix (GRE Ready)
 
-Fix voor Docker MTU mismatch wanneer je een **GRE tunnel** gebruikt.
+MTU fix script voor servers met een **GRE tunnel** of verlaagde WAN MTU.
+
+Lost Docker MTU mismatches en container netwerkproblemen op.
+
+---
 
 ## Probleem
 
-Bij een GRE tunnel wordt je WAN MTU vaak verlaagd (bijv. 1476).  
+Bij gebruik van een GRE tunnel wordt de WAN MTU vaak verlaagd (bijv. 1476).
+
 Docker bridges blijven standaard op 1500 staan.
 
 Gevolg:
 
 - HTTPS timeouts in containers  
 - Minecraft auth errors  
-- API connecties die hangen  
+- API calls die blijven hangen  
 - Host werkt, container niet  
 
 Dit is een MTU mismatch.
 
 ---
 
-## Wat doet deze script?
+## Wat kan dit script?
 
-- Detecteert MTU van `eth0`
-- Zet Docker MTU gelijk aan WAN MTU
-- Herstart Docker + Wings
-- Recreate `pterodactyl_nw`
+Interactief menu met opties:
+
+1. **Pterodactyl fix**
+   - Zet Docker MTU gelijk aan WAN MTU
+   - Restart Docker + Wings
+   - Recreate `pterodactyl_nw`
+
+2. **Host/VPS MTU aanpassen**
+   - Wijzigt MTU van een gekozen interface
+
+3. **Allebei**
+   - Past host MTU aan
+   - Past Docker MTU aan
+   - Recreate network
+
+Je kunt kiezen tussen:
+- Auto-detect MTU
+- Custom MTU handmatig invoeren
 
 ---
 
